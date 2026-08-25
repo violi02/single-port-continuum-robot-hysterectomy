@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Medical Robotic Homework:\\ A Single Port Continuum Robotic System for Transvaginal Hysterectomy}
+\author{Viola Licata 2244118}
+\date{31 May 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Clinical Need}
+
+Vaginal hysterectomy (VH) combined with pelvic floor repair is a well-established major operation performed globally, with over 1.1 million procedures annually across the US and Europe. International clinical guidelines recognize it as the gold standard for benign uterine disease and prolapse, owing to the complete absence of abdominal incisions, minimized postoperative pain, and faster patient recovery \cite{acog2017choosing}.
+
+A sharp clinical paradox has nonetheless emerged in recent decades: VH utilization has fallen to less than 10--15\% worldwide, while abdominal laparoscopic hysterectomy (LH) now accounts for over 70\% of procedures \cite{trendsVaginalHyst2025}. The transvaginal route is routinely abandoned because of severe geometric constraints. The anatomical working space is narrow, deep, and conical, forcing rigid manual instruments to enter in parallel. This geometry eliminates internal triangulation entirely, causes continuous instrument clashing, and severely limits both visibility and operative dexterity.
+
+The downstream consequences of this technological bottleneck can be quantified concretely:
+
+\begin{itemize}
+    \item \textbf{Patient Morbidity:} More than 800,000 patients each year are unnecessarily exposed to abdominal surgical risks---trocar-induced vascular and bowel injuries, incisional hernias, and adhesions---that a natural orifice approach would inherently avoid.
+    \item \textbf{Clinical Accessibility:} Performing complex tissue dissection and pelvic floor suturing through a narrow canal demands a prohibitive learning curve. The kinematic constraints cannot be overcome by surgical training or improved manual instrumentation alone; the procedure currently remains accessible only to a small group of highly specialized surgeons.
+    \item \textbf{Economic Impact:} The shift to the abdominal laparoscopic route inflates healthcare expenditures substantially. A large retrospective cohort study at Johns Hopkins found that robotic and open abdominal approaches carried charges of \$17,535 and \$19,099 respectively, compared to only \$12,229 for the vaginal route, and that each additional hour in the operating room added approximately \$2,760 in charges \cite{kohn2023cost}. A 2024 European cost-analysis confirmed that robot-assisted abdominal hysterectomy reduces length of stay and hospitalization costs relative to open surgery, but remains the most expensive technique overall due to high material and equipment depreciation \cite{louwerse2024cost}.
+\end{itemize}
+
+Current commercial robotic platforms do not close this gap. Standard multi-port systems such as the Da Vinci Xi require multiple abdominal incisions, which defeats the purpose of a natural orifice approach. Existing single-port abdominal systems, meanwhile, are mechanically too rigid to navigate the curved subperitoneal pathways required for a purely transvaginal procedure without generating unacceptable lateral contact forces on surrounding tissue.
+
+The clinical need is not a shortage of effective treatments for uterine disease. The need is a persistent geometric bottleneck at the transvaginal access point that current manual instruments simply cannot resolve. Rather than developing dedicated natural orifice platforms, clinical practice has instead adapted standard laparoscopic robots for transabdominal use. This forces a departure from the guideline-recommended vaginal route solely to accommodate the rigid kinematic architecture of existing technologies.
+
+\section{Current Standard of Care and Its Limitations}
+
+The surgical management of benign uterine disease currently rests on a significant technological compromise between patient benefit and robotic accessibility. Three technical approaches dominate clinical practice, each with specific limitations that prevent a purely natural orifice transvaginal intervention:
+
+\begin{itemize}
+\item \textbf{Conventional Abdominal Approaches (Manual and Multi-Port Robotic Access):} Standard laparoscopy and robotic platforms such as the da Vinci \cite{gargiulo2020evolution} restore instrument triangulation and dexterity effectively, but their rigid architectures require wide anatomical dispersion across the anterior abdominal wall. Attempting to redirect these systems toward the perineal region introduces severe mechanical interference and external clashing, ultimately shifting surgical morbidity back to the patient through multiple incisions, trocar injuries, and incisional hernias.
+
+\item \textbf{Abdominal Single Port Access Systems (e.g., da Vinci SP):} \cite{palmer2021robotic} To limit abdominal trauma, single port systems pass an optical camera and three articulated instruments through a single 25\,mm cannula. While structurally closer to an ideal natural orifice platform, these devices retain a rigid proximal shaft that requires a minimum clearance distance before the distal joints can deploy. Within the confined bony boundaries of the pelvic outlet, this rigid architecture causes internal joint collisions and high lateral contact forces, risking significant tissue trauma during subperitoneal navigation.
+\end{itemize}
+
+The conclusion is straightforward: no current robotic system has the flexible, continuum kinematics needed to navigate the narrow, curved subperitoneal pathway of the vaginal canal while simultaneously maintaining stable internal triangulation at the operative site.
+
+\section{The Human Limitation Being Addressed}
+
+The clinical drift away from the guideline-recommended transvaginal route toward invasive abdominal surgery is ultimately driven by the physical and perceptual limits of the human operator working in a restricted anatomical environment. When performing a manual vaginal hysterectomy, the surgeon faces three specific and quantifiable physiological constraints:
+
+\begin{itemize}
+    \item \textbf{Kinematic Alignment and Loss of Triangulation:} In a conventional transvaginal approach, all instruments must enter through a single narrow canal, forcing the tool shafts to remain parallel to one another and reducing the internal triangulation angle to nearly $0^{\circ}$ \cite{marvik2004ergonomics}. To prevent the handles from clashing outside the patient, the surgeon is forced into counterintuitive compensatory movements. The human motor control system cannot efficiently manage parallel kinematics within a conical workspace, and distal dexterity degrades severely as a result.
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{kinematic_alignment.png}
+    \caption{Kinematic alignment and loss of internal triangulation during conventional transvaginal hysterectomy.}
+    \label{fig:kinematic_limitation}
+\end{figure}
+    \item \textbf{Degradation of Haptic Perception:} Pelvic floor reconstruction requires blind tissue dissection and high-load suturing in close proximity to critical structures---the uterine arteries and the bladder wall. When mediated by long-shaft manual tools, tactile feedback is heavily attenuated by friction along the vaginal walls. The human hand cannot reliably resolve lateral contact force variations below approximately 2\,N, which meaningfully increases the risk of accidental vascular laceration or tissue tearing.
+    \item \textbf{Amplification of the Fulcrum Effect and Fatigue:} Operating through a narrow natural orifice introduces a pronounced fulcrum effect: every movement outside the patient is inverted and amplified inside the cavity. Compensating for this inversion requires prolonged isometric muscle contractions, which accelerates fatigue. Quantitative studies have shown that after 45 minutes of continuous laparoscopic operation, physiological hand tremor amplitude at the distal tip roughly doubles \cite{cao2002surgeon}, directly compromising surgical precision. More recent electromyographic studies on laparoscopic surgeons have confirmed that deltoid and trapezius muscle fatigue accumulates progressively beyond 45--50 minutes of continuous operation, correlating with measurable deterioration in fine motor performance \cite{choi2024exoskeleton}.
+\end{itemize}
+
+\section{Proposed Robotic Solution}
+
+To overcome the geometric and physical constraints of both transabdominal and rigid single-access systems, this work proposes a dedicated single-port transvaginal continuum robotic platform. Rather than adapting an existing architecture for this context, the system is designed from the ground up around flexible, snake-like kinematics that can navigate the narrow, curved subperitoneal pathway of the vaginal canal without generating high lateral contact forces.
+
+\subsection{Continuum Insertion Overtube Subsystem}
+The platform is built around a flexible main shaft with an external diameter of 18\,mm, which is introduced directly through the vaginal natural orifice. The overtube serves two purposes: it shields the surrounding vaginal walls from friction during instrument deployment, and it houses the entire functional stack---a central multi-degree-of-freedom flexible stereoscopic camera for real-time three-dimensional visualization, and two independent lateral guidance channels that determine the entry trajectory of the operative tools.
+
+\subsection{Tendon Driven Multi Joint Manipulators}
+Two independent continuum manipulators are deployed through the integrated guidance channels. The kinematic architecture draws on the tendon-driven concentric tube paradigm that has been validated in endovascular catheter applications---a design space chosen over pure concentric tube robots because it offers better force transmission under off-axis loads and is more readily miniaturized to the required diameter. External sheaths are composed of medical-grade fluoropolymers to satisfy biocompatibility regulations, while the internal flexible backbones use superelastic Nitinol alloys for their well-characterized fatigue resistance and stiffness profile. The manipulators are designed as sterile disposable components that interface with the non-sterile actuation motors through a quick-release mechanical transmission barrier. Each arm provides 6 active degrees of freedom for spatial positioning plus 1 degree of freedom for end-effector actuation, giving 7 degrees of freedom per arm and 14 total across the system.
+
+\subsection{Integrated Shape Sensing via Fiber Bragg Grating Sensors}
+Safe continuum manipulation inside a compliant pelvic cavity depends critically on knowing the instantaneous shape of the flexible shaft---information that motor encoders alone cannot provide. To address this, each manipulator integrates a fiber Bragg grating (FBG) optical sensor array embedded along its full flexible backbone. Wavelength shifts in the reflected optical signal are mapped to local curvature and strain at each FBG node, enabling real-time, three-dimensional shape reconstruction that is fully independent of the kinematic model. This sensing modality has recently been demonstrated on single-port continuum surgical robots at clinically relevant scales \cite{li2023shapesensing}, and more recent work has further extended the approach to simultaneous shape and force estimation using sparse FBG configurations \cite{amirkhani2023fbg}. In the proposed system, if the reconstruction algorithm detects an anomalous structural deflection consistent with unexpected wall contact, the control software can immediately halt actuation before the operator observes a visual cue, providing a hardware-level safety net against inadvertent tissue perforation.
+
+\subsection{Active Triangulation Deployment Kinematics}
+Once the distal end of the overtube clears the vaginal canal and enters the pelvic cavity, the two manipulators execute a coordinated, nonlinear deployment sequence. Each arm bends laterally outward in opposite directions and then curves back toward the uterine target site. This S-shaped bending trajectory recovers an internal triangulation angle of approximately $50^{\circ}$ at the operative site \cite{palmer2021robotic}, which is sufficient to eliminate internal workspace interference and external handle clashing entirely.
+
+\subsection{Real Time Coordinate Mapping and Control Interface}
+The master-slave control architecture incorporates real-time coordinate mapping to preserve surgical precision throughout the procedure. The control software inverts the fulcrum effect mathematically, mapping surgeon console movements directly to distal tip coordinates so that the motion relationship is intuitive and one-to-one. The same software layer continuously filters physiological hand tremor, substantially reducing the cognitive and physical fatigue that accumulates during prolonged suturing tasks.
+
+\subsection{Level of Autonomy}
+The proposed system is engineered strictly to Level 1 of Autonomy---Robot Assistance---according to international medical robotics standards. The platform has no operational decision-making capability and cannot independently initiate or execute any motion trajectory. The surgeon retains continuous direct master-slave control over all 14 active degrees of freedom. The autonomy layer is limited exclusively to subvisual physical assistance: executing the active triangulation coordinate mapping, neutralizing the fulcrum inversion, filtering hand tremor, and halting motion on anomalous FBG deflection. Every incision, dissection, and suture placement remains entirely driven by the clinician's real-time cognitive and motor inputs.
+
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{robotic_solution.png}
+    \caption{Proposed Robotic Solution: SP.}
+    \label{fig:robotic_solution}
+\end{figure}
+
+\section{Why is this feasible now}
+
+The technological viability of this platform rests on a deliberate balance between mature commercial components that support investigation today, and genuine research gaps that still preclude immediate clinical deployment. Several baseline subsystems can be sourced from existing off-the-shelf technologies, reducing the engineering scope to the problems that are genuinely novel:
+
+\begin{itemize}
+    \item \textbf{Industrial Standardization of Superelastic Alloys:} The manufacture of Nitinol stock and micro-cable transmission networks has reached commercial maturity, driven by the high volume of the endovascular catheter market. The result is more predictable, fatigue-resistant material behavior and a reliable supply chain that an academic prototype can realistically access.
+    \item \textbf{Submillimeter Imaging and Sensing:} CMOS chip-on-tip stereoscopic cameras have recently been miniaturized below 3\,mm while retaining high-definition three-dimensional resolution. This scaling makes it feasible to embed a full visual stack inside the 18\,mm overtube without consuming the cross-sectional space reserved for the instrument channels.
+    \item \textbf{Actuation Infrastructure and Materials:} High-torque-density brushless motors and optical encoders capable of driving the internal tendon networks are commercially available. Medical-grade fluoropolymer extrusions for wall protection are already mass-produced and certified under international biocompatibility standards.
+\end{itemize}
+
+Despite this favorable baseline, two engineering challenges cannot be borrowed from existing products and must be solved through dedicated research:
+
+\begin{itemize}
+    \item \textbf{Force Interaction Control Algorithms:} Existing robotic catheter software assumes geometric navigation in open lumens without wall contact. Hysterectomy requires high-load tissue traction and suturing, which impose significant off-axis forces on the flexible arms and cause elastic deflections that accumulate into position errors. The system will need proprietary model-based inversion algorithms---grounded in Cosserat rod mechanics or equivalent frameworks \cite{jalali2022dynamic}---that estimate these interaction forces in real time and compensate for structural deflection under load. This is an active open problem in continuum robot control and cannot be resolved by adopting catheter software.
+    \item \textbf{Sterile Quick-Release Transmission Interface:} No commercial interface currently exists for transferring high torque from non-sterile actuation motors to sterile disposable continuum arms with zero backlash and a reliable sterile barrier. This custom mechanical component must be designed, manufactured, and validated specifically for this application.
+\end{itemize}
+
+\section{Regulatory and Reimbursement Pathway}
+
+The proposed platform will be classified as a Class II medical device under FDA regulations and as a Class IIb device under the EU Medical Device Regulation \cite{simon2023european}. This classification is appropriate because the system does not incorporate active energy ablation or life-sustaining software, and its core subsystems build on established surgical technology baselines. The nearest predicate device is the Intuitive Surgical da Vinci SP, already cleared for urological and gynecological procedures \cite{fda2018davincisp}. Because the proposed system introduces novel continuum kinematics and shifts from abdominal to transvaginal natural orifice entry, the regulatory strategy will follow the FDA 510(k) pathway, demonstrating substantial equivalence specifically in diagnostic visualization, mechanical end-effector safety, and user control interfaces.
+
+On the reimbursement side, the primary payers will be private insurers and national healthcare systems operating through established Diagnosis Related Group structures. The platform does not require a new billing code; it will be invoiced under the existing inpatient laparoscopy or standard robotic hysterectomy codes, since the clinical diagnostic pathway is unchanged. The economic case for adoption rests on the substitution of a multi-day abdominal hospital admission for a same-day transvaginal outpatient procedure. Evidence from a large Johns Hopkins cohort study shows that each additional day of inpatient stay adds approximately \$865 in hospital charges \cite{kohn2023cost}, creating direct financial incentive for hospitals to favor the shorter recovery profile of the transvaginal approach within fixed DRG payments.
+
+\section{Risks and Failure Modes}
+
+Deploying this platform in a clinical environment introduces distinct risks across three dimensions, each of which requires a specific mitigation strategy:
+
+\begin{itemize}
+    \item \textbf{Technical Failure: Tendon Elongation and Hysteresis (Mechanical Risk):} The high cyclic loads generated during pelvic suturing will cause the internal driving cables to stretch and accumulate frictional hysteresis over a procedure, degrading positional accuracy at the distal tip. The control software will incorporate a real-time kinematic compensation model driven by tension sensors at the motor actuation pack. Critically, the manipulators are designed as single-use disposable components, which eliminates fatigue accumulation across surgeries entirely.
+    \item \textbf{Clinical Failure: Uncontrolled Tissue Perforation (Safety Risk):} Because continuum manipulators lack rigid links and traditional joint encoders, precise shaft shape tracking is non-trivial. Unexpected contact with the compliant pelvic walls could produce a tissue perforation before the operator detects a visual deflection. The FBG sensor array described in Section~4.3 addresses this directly by providing model-independent three-dimensional shape feedback; anomalous deflection patterns trigger an immediate software-level halt before any critical threshold is reached \cite{li2023shapesensing}.
+    \item \textbf{Commercial Failure: High Production Costs of Disposable Arms (Economic Risk):} Manufacturing multi-lumen concentric tubes with internal tendon channels as single-use items risks a per-procedure cost that hospital procurement will not accept. The architecture mitigates this by concentrating expensive microelectronics and motors in a reusable base station, while the disposable arms use standardized mass-produced medical-grade polymers and pre-cut Nitinol tubes---materials that lend themselves to automated assembly and high-volume cost reduction.
+\end{itemize}
+
+\section{What This Concept Does Not Solve}
+
+It is important to define what the first-generation platform is not designed to handle, both to set realistic expectations and to define a meaningful engineering scope:
+
+\begin{itemize}
+    \item \textbf{Vascular Injury Beyond the Uterine Artery Distribution:} The system is optimized for isolation, clipping, and ligation of the uterine arteries. It does not have the workspace volume or structural payload capacity to manage massive retroperitoneal hemorrhages from the internal iliac vessels or the aorta.
+    \item \textbf{Severe Anatomical Distortions and Uterine Volume Limits:} The platform cannot safely navigate stage IV endometriosis or severe pelvic adhesions. Nor can it accommodate uteri exceeding a volume equivalent to 12 weeks of gestation, where tissue mass occludes the confined workspace and prevents safe tool deployment.
+    \item \textbf{Patient Obesity and Vaginal Access Constraints:} While the transvaginal approach avoids the abdominal wall thickness problems of laparoscopy in obese patients, severe visceral obesity alters pelvic floor compliance and baseline pressure in ways the first-generation architecture cannot compensate for, as it lacks active lateral tissue retraction.
+    \item \textbf{Replacement of Surgical Judgment:} The system improves access and visualization; it does not replace anatomical knowledge or intraoperative decision-making. A surgeon without training in transvaginal anatomy who treats the platform as an automated navigation tool is misusing it.
+\end{itemize}
+
+\section{Concluding Statement}
+
+The central challenge of transvaginal hysterectomy is geometric and anatomical rather than merely manipulative. Multi-port platforms engineered for wide transabdominal workspaces carry inherent structural constraints that become problematic when redirected toward a narrow natural orifice, and no amount of incremental refinement of those architectures will resolve the mismatch. A targeted robotic solution must instead be built around flexible continuum kinematics capable of nonlinear deployment and reliable internal triangulation within a single-port configuration. The minimum viable system is compact, modular, and designed first and foremost to preserve the clinical benefits of natural orifice surgery.
+
+The proposal described here is intentionally scoped to a specific access problem within a single high-volume procedure. The underlying technology, however, generalizes naturally. Any surgical context characterized by high procedure volume, narrow-access geometric constraints, and severe workspace limitations---transoral robotic surgery for base-of-tongue tumors, or transurethral resection of deep bladder masses, for instance---is a strong candidate for the same continuum deployment and tendon-driven manipulation strategy.
+
+\section*{Declaration on the Use of Artificial Intelligence}
+
+In accordance with academic integrity guidelines, generative artificial intelligence tools were used during the preparation of this report. Specifically, a large language model assisted with refining academic English grammar and phrasing, and with the preliminary verification of relevant scientific literature. Automated generative design tools were used to synthesize the conceptual mechanical diagrams and kinematics visualizations included in this document.
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\end{document}
